@@ -1,0 +1,17 @@
+C:\Users\Dell\source\repos\BTL_API\BusinessLogicLayer\bin\Debug\net6.0\BusinessLogicLayer.deps.json
+C:\Users\Dell\source\repos\BTL_API\BusinessLogicLayer\bin\Debug\net6.0\BusinessLogicLayer.dll
+C:\Users\Dell\source\repos\BTL_API\BusinessLogicLayer\bin\Debug\net6.0\BusinessLogicLayer.pdb
+C:\Users\Dell\source\repos\BTL_API\BusinessLogicLayer\bin\Debug\net6.0\DataAccessLayer.dll
+C:\Users\Dell\source\repos\BTL_API\BusinessLogicLayer\bin\Debug\net6.0\DataModel.dll
+C:\Users\Dell\source\repos\BTL_API\BusinessLogicLayer\bin\Debug\net6.0\DataAccessLayer.pdb
+C:\Users\Dell\source\repos\BTL_API\BusinessLogicLayer\bin\Debug\net6.0\DataModel.pdb
+C:\Users\Dell\source\repos\BTL_API\BusinessLogicLayer\obj\Debug\net6.0\BusinessLogicLayer.csproj.AssemblyReference.cache
+C:\Users\Dell\source\repos\BTL_API\BusinessLogicLayer\obj\Debug\net6.0\BusinessLogicLayer.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Dell\source\repos\BTL_API\BusinessLogicLayer\obj\Debug\net6.0\BusinessLogicLayer.AssemblyInfoInputs.cache
+C:\Users\Dell\source\repos\BTL_API\BusinessLogicLayer\obj\Debug\net6.0\BusinessLogicLayer.AssemblyInfo.cs
+C:\Users\Dell\source\repos\BTL_API\BusinessLogicLayer\obj\Debug\net6.0\BusinessLogicLayer.csproj.CoreCompileInputs.cache
+C:\Users\Dell\source\repos\BTL_API\BusinessLogicLayer\obj\Debug\net6.0\BusinessLogicLayer.csproj.CopyComplete
+C:\Users\Dell\source\repos\BTL_API\BusinessLogicLayer\obj\Debug\net6.0\BusinessLogicLayer.dll
+C:\Users\Dell\source\repos\BTL_API\BusinessLogicLayer\obj\Debug\net6.0\refint\BusinessLogicLayer.dll
+C:\Users\Dell\source\repos\BTL_API\BusinessLogicLayer\obj\Debug\net6.0\BusinessLogicLayer.pdb
+C:\Users\Dell\source\repos\BTL_API\BusinessLogicLayer\obj\Debug\net6.0\ref\BusinessLogicLayer.dll

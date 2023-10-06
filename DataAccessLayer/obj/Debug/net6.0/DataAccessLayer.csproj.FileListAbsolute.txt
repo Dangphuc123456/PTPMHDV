@@ -1,0 +1,15 @@
+C:\Users\Dell\source\repos\BTL_API\DataAccessLayer\bin\Debug\net6.0\DataAccessLayer.deps.json
+C:\Users\Dell\source\repos\BTL_API\DataAccessLayer\bin\Debug\net6.0\DataAccessLayer.dll
+C:\Users\Dell\source\repos\BTL_API\DataAccessLayer\bin\Debug\net6.0\DataAccessLayer.pdb
+C:\Users\Dell\source\repos\BTL_API\DataAccessLayer\bin\Debug\net6.0\DataModel.dll
+C:\Users\Dell\source\repos\BTL_API\DataAccessLayer\bin\Debug\net6.0\DataModel.pdb
+C:\Users\Dell\source\repos\BTL_API\DataAccessLayer\obj\Debug\net6.0\DataAccessLayer.csproj.AssemblyReference.cache
+C:\Users\Dell\source\repos\BTL_API\DataAccessLayer\obj\Debug\net6.0\DataAccessLayer.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Dell\source\repos\BTL_API\DataAccessLayer\obj\Debug\net6.0\DataAccessLayer.AssemblyInfoInputs.cache
+C:\Users\Dell\source\repos\BTL_API\DataAccessLayer\obj\Debug\net6.0\DataAccessLayer.AssemblyInfo.cs
+C:\Users\Dell\source\repos\BTL_API\DataAccessLayer\obj\Debug\net6.0\DataAccessLayer.csproj.CoreCompileInputs.cache
+C:\Users\Dell\source\repos\BTL_API\DataAccessLayer\obj\Debug\net6.0\DataAccessLayer.csproj.CopyComplete
+C:\Users\Dell\source\repos\BTL_API\DataAccessLayer\obj\Debug\net6.0\DataAccessLayer.dll
+C:\Users\Dell\source\repos\BTL_API\DataAccessLayer\obj\Debug\net6.0\refint\DataAccessLayer.dll
+C:\Users\Dell\source\repos\BTL_API\DataAccessLayer\obj\Debug\net6.0\DataAccessLayer.pdb
+C:\Users\Dell\source\repos\BTL_API\DataAccessLayer\obj\Debug\net6.0\ref\DataAccessLayer.dll
