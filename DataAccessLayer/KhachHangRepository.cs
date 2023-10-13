@@ -1,11 +1,9 @@
 ﻿using DataModel;
-using DataAccessLayer.Helper.Interfaces.DataAccessLayer;
-using DataAccessLayer.Helper;
 using DataAccessLayer.Interfaces;
 
 namespace DataAccessLayer
 {
-    public class KhachHangRepository: IKhachRepository
+    public class KhachHangRepository : IKhachRepository
     {
         private IDatabaseHelper _dbHelper;
         public KhachHangRepository(IDatabaseHelper dbHelper)
@@ -25,9 +23,10 @@ namespace DataAccessLayer
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw ;
             }
         }
+
         public bool Create(KhachHangModel model)
         {
             string msgError = "";
@@ -45,9 +44,10 @@ namespace DataAccessLayer
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw; // Re-throw without changing stack information
             }
         }
+
         public bool Update(KhachHangModel model)
         {
             string msgError = "";
@@ -55,7 +55,7 @@ namespace DataAccessLayer
             {
                 var result = _dbHelper.ExecuteScalarSProcedureWithTransaction(out msgError, "sp_khach_update",
                 "@MaKhach", model.MaKhach,
-               "@TenKhach", model.TenKhach,
+                "@TenKhach", model.TenKhach,
                 "@DiaChi", model.DiaChi,
                 "@DienThoai", model.DienThoai);
                 if ((result != null && !string.IsNullOrEmpty(result.ToString())) || !string.IsNullOrEmpty(msgError))
@@ -66,7 +66,7 @@ namespace DataAccessLayer
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw; // Re-throw without changing stack information
             }
         }
 
@@ -88,8 +88,9 @@ namespace DataAccessLayer
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw; // Re-throw without changing stack information
             }
         }
+
     }
 }

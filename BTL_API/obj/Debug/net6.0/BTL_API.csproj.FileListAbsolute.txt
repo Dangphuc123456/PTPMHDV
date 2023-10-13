@@ -44,3 +44,8 @@ C:\Users\Dell\source\repos\BTL_API\BTL_API\obj\Debug\net6.0\refint\BTL_API.dll
 C:\Users\Dell\source\repos\BTL_API\BTL_API\obj\Debug\net6.0\BTL_API.pdb
 C:\Users\Dell\source\repos\BTL_API\BTL_API\obj\Debug\net6.0\BTL_API.genruntimeconfig.cache
 C:\Users\Dell\source\repos\BTL_API\BTL_API\obj\Debug\net6.0\ref\BTL_API.dll
+C:\Users\Dell\source\repos\BTL_API\BTL_API\bin\Debug\net6.0\Microsoft.IdentityModel.Abstractions.dll
+C:\Users\Dell\source\repos\BTL_API\BTL_API\bin\Debug\net6.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\Dell\source\repos\BTL_API\BTL_API\bin\Debug\net6.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\Dell\source\repos\BTL_API\BTL_API\bin\Debug\net6.0\Microsoft.IdentityModel.Tokens.dll
+C:\Users\Dell\source\repos\BTL_API\BTL_API\bin\Debug\net6.0\System.IdentityModel.Tokens.Jwt.dll

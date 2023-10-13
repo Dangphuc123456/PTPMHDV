@@ -1,8 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using System.Data;
 using System.Data.SqlClient;
-using DataAccessLayer.Helper.Interfaces;
-using DataAccessLayer.Helper.Interfaces.DataAccessLayer;
 
 namespace DataAccessLayer
 {
