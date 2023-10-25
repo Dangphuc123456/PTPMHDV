@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33516.290
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BTL_API", "BTL_API\BTL_API.csproj", "{8248DC6A-59A8-4B23-A5B2-F65F253FF630}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BTL_API", "BTL_API\BTL_API.csproj", "{8248DC6A-59A8-4B23-A5B2-F65F253FF630}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusinessLogicLayer", "BusinessLogicLayer\BusinessLogicLayer.csproj", "{FE24CCD5-8674-43BB-9CFC-0A765F6A8072}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BusinessLogicLayer", "BusinessLogicLayer\BusinessLogicLayer.csproj", "{FE24CCD5-8674-43BB-9CFC-0A765F6A8072}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccessLayer", "DataAccessLayer\DataAccessLayer.csproj", "{2D7F19C7-48E5-400B-8037-8DE6EE708702}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccessLayer", "DataAccessLayer\DataAccessLayer.csproj", "{2D7F19C7-48E5-400B-8037-8DE6EE708702}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataModel", "DataModel\DataModel.csproj", "{7A60324A-4C13-4138-899E-AB8F12D315A4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataModel", "DataModel\DataModel.csproj", "{7A60324A-4C13-4138-899E-AB8F12D315A4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GatewayAPI", "GatewayAPI\GatewayAPI.csproj", "{E16735E5-A64A-4DF6-B0B3-8185998B3967}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{7A60324A-4C13-4138-899E-AB8F12D315A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7A60324A-4C13-4138-899E-AB8F12D315A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7A60324A-4C13-4138-899E-AB8F12D315A4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E16735E5-A64A-4DF6-B0B3-8185998B3967}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E16735E5-A64A-4DF6-B0B3-8185998B3967}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E16735E5-A64A-4DF6-B0B3-8185998B3967}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E16735E5-A64A-4DF6-B0B3-8185998B3967}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
