@@ -1,8 +1,9 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using DataAccessLayer.Helper.Interfaces;
+using Microsoft.Extensions.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 
-namespace DataAccessLayer
+namespace DataAccessLayer.Helper
 {
     public class DatabaseHelper : IDatabaseHelper
     {
@@ -194,7 +195,7 @@ namespace DataAccessLayer
                 SqlCommand cmd = new SqlCommand { CommandType = CommandType.StoredProcedure, CommandText = sprocedureName };
                 connection.Open();
                 cmd.Connection = connection;
-                int parameterInput = (paramObjects.Length) / 2;
+                int parameterInput = paramObjects.Length / 2;
                 int j = 0;
                 for (int i = 0; i < parameterInput; i++)
                 {
@@ -249,7 +250,7 @@ namespace DataAccessLayer
                         cmd.CommandText = sprocedureName;
                         cmd.Transaction = transaction;
                         cmd.Connection = connection;
-                        int parameterInput = (paramObjects.Length) / 2;
+                        int parameterInput = paramObjects.Length / 2;
                         int j = 0;
                         for (int i = 0; i < parameterInput; i++)
                         {
@@ -312,7 +313,7 @@ namespace DataAccessLayer
                         try
                         {
                             cmd.CommandText = storeParameterInfos[p].StoreProcedureName;
-                            int parameterInput = storeParameterInfos[p].StoreProcedureParams == null ? 0 : (storeParameterInfos[p].StoreProcedureParams.Count) / 2;
+                            int parameterInput = storeParameterInfos[p].StoreProcedureParams == null ? 0 : storeParameterInfos[p].StoreProcedureParams.Count / 2;
                             int j = 0;
 
                             if (cmd.Parameters != null && cmd.Parameters.Count > 0)
@@ -374,7 +375,7 @@ namespace DataAccessLayer
                             try
                             {
                                 cmd.CommandText = storeParameterInfos[p].StoreProcedureName;
-                                int parameterInput = storeParameterInfos[p].StoreProcedureParams == null ? 0 : (storeParameterInfos[p].StoreProcedureParams.Count) / 2;
+                                int parameterInput = storeParameterInfos[p].StoreProcedureParams == null ? 0 : storeParameterInfos[p].StoreProcedureParams.Count / 2;
                                 int j = 0;
 
                                 if (cmd.Parameters != null && cmd.Parameters.Count > 0)
@@ -440,7 +441,7 @@ namespace DataAccessLayer
                 SqlCommand cmd = new SqlCommand { CommandType = CommandType.StoredProcedure, CommandText = sprocedureName };
                 connection.Open();
                 cmd.Connection = connection;
-                int parameterInput = (paramObjects.Length) / 2;
+                int parameterInput = paramObjects.Length / 2;
                 int j = 0;
                 for (int i = 0; i < parameterInput; i++)
                 {
@@ -506,7 +507,7 @@ namespace DataAccessLayer
                         try
                         {
                             cmd.CommandText = storeParameterInfos[p].StoreProcedureName;
-                            int parameterInput = storeParameterInfos[p].StoreProcedureParams == null ? 0 : (storeParameterInfos[p].StoreProcedureParams.Count) / 2;
+                            int parameterInput = storeParameterInfos[p].StoreProcedureParams == null ? 0 : storeParameterInfos[p].StoreProcedureParams.Count / 2;
                             int j = 0;
 
                             if (cmd.Parameters != null && cmd.Parameters.Count > 0)
@@ -571,7 +572,7 @@ namespace DataAccessLayer
                             try
                             {
                                 cmd.CommandText = storeParameterInfos[p].StoreProcedureName;
-                                int parameterInput = storeParameterInfos[p].StoreProcedureParams == null ? 0 : (storeParameterInfos[p].StoreProcedureParams.Count) / 2;
+                                int parameterInput = storeParameterInfos[p].StoreProcedureParams == null ? 0 : storeParameterInfos[p].StoreProcedureParams.Count / 2;
                                 int j = 0;
 
                                 if (cmd.Parameters != null && cmd.Parameters.Count > 0)
@@ -645,7 +646,7 @@ namespace DataAccessLayer
                         cmd.Transaction = transaction;
                         cmd.Connection = connection;
 
-                        int parameterInput = (paramObjects.Length) / 2;
+                        int parameterInput = paramObjects.Length / 2;
                         int j = 0;
                         for (int i = 0; i < parameterInput; i++)
                         {
@@ -706,7 +707,7 @@ namespace DataAccessLayer
                 connection = new SqlConnection(StrConnection);
                 cmd.Connection = connection;
 
-                int parameterInput = (paramObjects.Length) / 2;
+                int parameterInput = paramObjects.Length / 2;
 
                 int j = 0;
                 for (int i = 0; i < parameterInput; i++)
@@ -759,7 +760,7 @@ namespace DataAccessLayer
                 connection = new SqlConnection(StrConnection);
                 cmd.Connection = connection;
 
-                int parameterInput = (paramObjects.Length) / 2;
+                int parameterInput = paramObjects.Length / 2;
 
                 int j = 0;
                 for (int i = 0; i < parameterInput; i++)
@@ -816,7 +817,7 @@ namespace DataAccessLayer
                 }
 
                 cmd.Connection = npgsqlConnection;
-                int parameterInput = (paramObjects.Length) / 2;
+                int parameterInput = paramObjects.Length / 2;
                 int j = 0;
                 for (int i = 0; i < parameterInput; i++)
                 {
@@ -853,9 +854,9 @@ namespace DataAccessLayer
         /// <param name="outputParamCountNumber">outputParam Count Number</param>
         /// <param name="paramObjects">List Param Objects, Each Item include 'ParamName' and 'ParamValue'</param>
         /// <returns>List Object Result in query</returns>
-        public List<Object> ReturnValuesFromExecuteSProcedure(out string msgError, string sprocedureName, int outputParamCountNumber, params object[] paramObjects)
+        public List<object> ReturnValuesFromExecuteSProcedure(out string msgError, string sprocedureName, int outputParamCountNumber, params object[] paramObjects)
         {
-            List<Object> result = new List<Object>();
+            List<object> result = new List<object>();
             SqlConnection connection = new SqlConnection(StrConnection);
             try
             {

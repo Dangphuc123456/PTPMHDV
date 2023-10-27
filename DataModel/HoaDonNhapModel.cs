@@ -16,7 +16,7 @@
         public string MaHDNhap { get; set; }
         public string MaNguyenlieu { get; set; }
         public int SoLuong { get; set; }
-        public float GiamGia { get; set; }
+        public float Dongia { get; set; }
         public float ThanhTien { get; set; }
     }
 }

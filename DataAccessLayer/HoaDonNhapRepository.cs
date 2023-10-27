@@ -1,5 +1,7 @@
 ﻿using DataModel;
 using DataAccessLayer.Interfaces;
+using DataAccessLayer.Helper.Interfaces;
+using DataAccessLayer.Helper;
 
 namespace DataAccessLayer
 {
@@ -73,23 +75,23 @@ namespace DataAccessLayer
             }
         }
 
-        public List<ThongkeNhaCungCapModel> Search(int pageIndex, int pageSize, out long total, string NhaCCID, DateTime? fr_NgayNhap, DateTime? to_NgayNhap)
+        public List<ThongkeNguyenlieuModel> Search(int pageIndex, int pageSize, out long total, string MaNguyenlieu, DateTime? fr_NgayNhap, DateTime? to_NgayNhap)
         {
             string msgError = "";
             total = 0;
             try
             {
-                var dt = _dbHelper.ExecuteSProcedureReturnDataTable(out msgError, "sp_thong_ke_khach",
+                var dt = _dbHelper.ExecuteSProcedureReturnDataTable(out msgError, "sp_thong_ke_nguyenlieu",
                     "@page_index", pageIndex,
                     "@page_size", pageSize,
-                    "@NhaCCID", NhaCCID,
+                    "@MaNguyenlieu", MaNguyenlieu,
                     "@fr_NgayNhap", fr_NgayNhap,
                     "@to_NgayNhap", to_NgayNhap
                      );
                 if (!string.IsNullOrEmpty(msgError))
                     throw new Exception(msgError);
                 if (dt.Rows.Count > 0) total = (long)dt.Rows[0]["RecordCount"];
-                return dt.ConvertTo<ThongkeNhaCungCapModel>().ToList();
+                return dt.ConvertTo<ThongkeNguyenlieuModel>().ToList();
             }
             catch (Exception ex)
             {

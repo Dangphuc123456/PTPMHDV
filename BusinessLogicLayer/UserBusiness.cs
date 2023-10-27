@@ -1,5 +1,5 @@
-﻿using BusinessLogicLayer;
-using DataAccessLayer;
+﻿using BusinessLogicLayer.Interfaces;
+using DataAccessLayer.Interfaces;
 using DataModel;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;

@@ -1,7 +1,7 @@
 ﻿using DataModel;
 
 
-namespace BusinessLogicLayer
+namespace BusinessLogicLayer.Interfaces
 {
     public partial interface IUserBusiness
     {

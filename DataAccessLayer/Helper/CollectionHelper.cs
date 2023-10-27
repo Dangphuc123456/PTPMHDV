@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Reflection;
 
-namespace DataAccessLayer
+namespace DataAccessLayer.Helper
 {
     public static class MessageConvert
     {
@@ -34,7 +34,7 @@ namespace DataAccessLayer
 
         }
 
-        public static Object DeserializeObject(this string json, Type type)
+        public static object DeserializeObject(this string json, Type type)
         {
             try
             {
@@ -51,14 +51,14 @@ namespace DataAccessLayer
         private static string GetExcelColumnName(int columnNumber)
         {
             int dividend = columnNumber;
-            string columnName = String.Empty;
+            string columnName = string.Empty;
             int modulo;
 
             while (dividend > 0)
             {
                 modulo = (dividend - 1) % 26;
                 columnName = Convert.ToChar(65 + modulo).ToString() + columnName;
-                dividend = (int)((dividend - modulo) / 26);
+                dividend = (dividend - modulo) / 26;
             }
             return columnName;
         }
@@ -74,7 +74,7 @@ namespace DataAccessLayer
         {
             var enumerable = source as T[] ?? source.ToArray();
             int totalRow = enumerable.Count();
-            totalPage = totalRow % pageSize == 0 ? totalRow / pageSize : (totalRow / pageSize) + 1;
+            totalPage = totalRow % pageSize == 0 ? totalRow / pageSize : totalRow / pageSize + 1;
             int skip = (pageIndex - 1) * pageSize;
             var rows = enumerable.Skip(skip).Take(pageSize);
             return rows.ToList();
@@ -135,7 +135,7 @@ namespace DataAccessLayer
         }
         public static T CreateItem<T>(DataRow row)
         {
-            T obj = default(T);
+            T obj = default;
             if (row != null)
             {
                 obj = Activator.CreateInstance<T>();
@@ -151,7 +151,7 @@ namespace DataAccessLayer
                         {
                             if (column.ColumnName.Contains("json"))
                             {
-                                prop.SetValue(obj, MessageConvert.DeserializeObject(("" + value).Replace("$", ""), type), null);
+                                prop.SetValue(obj, ("" + value).Replace("$", "").DeserializeObject(type), null);
                             }
                             else if (type.Name == "String")
                             {
@@ -164,7 +164,7 @@ namespace DataAccessLayer
                             else if (type.Name == "Nullable`1" || type.Name == "DateTime")
                             {
                                 var t = Nullable.GetUnderlyingType(type) ?? type;
-                                var safeValue = (value == null) ? null : Convert.ChangeType(value, t);
+                                var safeValue = value == null ? null : Convert.ChangeType(value, t);
                                 prop.SetValue(obj, safeValue, null);
                             }
                             else

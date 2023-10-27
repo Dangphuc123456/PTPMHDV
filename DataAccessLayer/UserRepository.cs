@@ -1,4 +1,7 @@
 ﻿
+using DataAccessLayer.Helper;
+using DataAccessLayer.Helper.Interfaces;
+using DataAccessLayer.Interfaces;
 using DataModel;
 
 namespace DataAccessLayer

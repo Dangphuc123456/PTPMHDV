@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DataModel
 {
-    public class ThongkeNhaCungCapModel
+    public class ThongkeNguyenlieuModel
     {
         public string MaNguyenlieu { get; set; }
         public string TenNguyenlieu { get; set; }

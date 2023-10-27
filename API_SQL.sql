@@ -1,8 +1,8 @@
 ﻿--use master
 --drop database if exists BTL_API
-create database BTL_API
+create database BTL_API_update
 go
-use  BTL_API
+use  BTL_API_update
 go
 
 CREATE TABLE TaiKhoans(
@@ -37,11 +37,6 @@ create table Monan
 	Gia float (53) not null
 )
 
-create table Banan(
-    Maban Nvarchar(10) primary key,
-    Tinhtrang nvarchar(20)
-)
-
 create table Khach
 (
 	MaKhach nvarchar(10) primary key not null,
@@ -49,7 +44,7 @@ create table Khach
 	DiaChi nvarchar(50) not null,
 	DienThoai nvarchar(50) not null
 )
-go
+
 
 
 create table Nguyenlieu
@@ -94,7 +89,6 @@ create table HDBan
 	MaHDBan nvarchar(30) primary key not null,
 	MaNhanVien nvarchar(10) not null,foreign key(MaNhanVien) references NhanVien(MaNhanVien),
 	NgayBan Datetime not null,
-	Maban nvarchar(10) not null,foreign key(Maban) references Banan(Maban),
 	MaKhach nvarchar(10) not null,foreign key(MaKhach) references Khach(MaKhach),
 	TongTien float(53) not null
 )
@@ -128,20 +122,6 @@ VALUES
     ('MA003', 'Com Tam', 'Món cơm', 40000),
     ('MA004', 'Banh Xeo', 'Món bánh', 35000),
     ('MA005', 'Ca Kho', 'Món cá', 60000);
-
--- Tạo dữ liệu cho bảng Banan
-INSERT INTO Banan (Maban, Tinhtrang)
-VALUES
-    ('B01', N'Trống'),
-    ('B02', N'Đã đặt'),
-    ('B03', N'Đang sử dụng'),
-    ('B04', N'Đã thanh toán'),
-    ('B05', N'Trống'),
-	('B06', N'Trống'),
-    ('B07', N'Trống'),
-    ('B08', N'Trống'),
-    ('B09', N'Trống'),
-    ('B10', N'Trống');
 
 -- Tạo dữ liệu cho bảng Khach
 INSERT INTO Khach (MaKhach, TenKhach, DiaChi, DienThoai)
@@ -189,13 +169,13 @@ VALUES
     ('CTN005', 'HDN004', 'NL005', 12, 10000, 120000);
 
 -- Tạo dữ liệu cho bảng HDBan
-INSERT INTO HDBan (MaHDBan, MaNhanVien, NgayBan, Maban, MaKhach, TongTien)
+INSERT INTO HDBan (MaHDBan, MaNhanVien, NgayBan, MaKhach, TongTien)
 VALUES
-    ('HDB001', 'NV001', '2023-06-01', 'B01', 'KH001', 500000),
-    ('HDB002', 'NV002', '2023-06-02', 'B02', 'KH002', 700000),
-    ('HDB003', 'NV003', '2023-06-03', 'B03', 'KH003', 550000),
-    ('HDB004', 'NV004', '2023-06-04', 'B04', 'KH004', 800000),
-    ('HDB005', 'NV005', '2023-06-05', 'B05', 'KH005', 650000);
+    ('HDB001', 'NV001', '2023-06-01', 'KH001', 500000),
+    ('HDB002', 'NV002', '2023-06-02', 'KH002', 700000),
+    ('HDB003', 'NV003', '2023-06-03', 'KH003', 550000),
+    ('HDB004', 'NV004', '2023-06-04', 'KH004', 800000),
+    ('HDB005', 'NV005', '2023-06-05', 'KH005', 650000);
 
 -- Tạo dữ liệu cho bảng ChiTietHDBan
 INSERT INTO ChiTietHDBan (MaCTBan, MaHDBan, Mamonan, SoLuong, GiamGia, ThanhTien)
@@ -217,7 +197,6 @@ VALUES
 	select * from Khach
 	select * from Nguyenlieu
 	Select * from Monan
-	Select * from Banan
 	Select * from HDNhap
 	Select * from ChiTietHDNhap
 	Select * from HDBan
@@ -408,58 +387,129 @@ AS
 	GO
 
 --DROP PROCEDURE sp_hoadonnhap_create;
-create PROCEDURE sp_hoadonnhap_create
-(@MaHDNhap nvarchar(50),
-@MaNhanVien nvarchar(50),
-@NgayNhap Datetime,
-@Maban nvarchar(50),
-@NhaCCID nvarchar(50),
-@Tongtien float,
-@list_json_chitiethoadon nvarchar(max)
+CREATE PROCEDURE sp_hoadonnhap_create
+(
+    @MaHDNhap nvarchar(50),
+    @MaNhanVien nvarchar(50),
+    @NgayNhap Datetime,
+    @NhaCCID nvarchar(50),
+    @Tongtien float,
+    @list_json_chitiethoadonnhap nvarchar(max)--sử dụng để lưu trữ dữ liệu dưới dạng văn bản có độ dài tối đa (maximum length) 
 )
 AS
+BEGIN
+    DECLARE @MaHoaDon nvarchar(50); --Chỉ định kiểu dữ liệu thích hợp cho @MaHoaDon
+
+    INSERT INTO HDNhap
+    (
+        MaHDNhap,
+        MaNhanVien,
+        NgayNhap,
+        NhaCCID,
+        TongTien
+    )
+    VALUES
+    (
+        @MaHDNhap,
+        @MaNhanVien,
+        @NgayNhap,
+        @NhaCCID,
+        @Tongtien
+    );
+    SET @MaHoaDon = (SELECT SCOPE_IDENTITY());--gán giá trị của biến @MaHoaDon bằng giá trị ID tự tạo 
+
+    IF (@list_json_chitiethoadonnhap IS NOT NULL)--kiểm tra xem biến có khác NULL hay không.
     BEGIN
-		DECLARE @MaHoaDon nvarchar;
-        INSERT INTO HDNhap
-                (MaHDNhap,
-				 MaNhanVien,
-				 NgayNhap,
-				 NhaCCID,
-				 TongTien
-                )
-                VALUES
-                (
-				@MaHDNhap,
-				@MaNhanVien ,
-				@NgayNhap ,
-				@NhaCCID ,
-				@Tongtien
-                );
-
-				SET @MaHoaDon = (SELECT SCOPE_IDENTITY());
-                IF(@list_json_chitiethoadon IS NOT NULL)
-                    BEGIN
-                        INSERT INTO ChiTietHDBan
-						 (MaCTNhap,
-						 MaHDNhap,
-						 Mamonan,
-						 SoLuong,
-						 GiamGia,
-						 ThanhTien
-                        )
-                    SELECT JSON_VALUE(p.value, '$.maCTNhap'), 
-                            @MaHoaDon, 
-                            JSON_VALUE(p.value, '$.maMonan'), 
-                            JSON_VALUE(p.value, '$.soLuong'), 
-							JSON_VALUE(p.value, '$.giamGia'),
-							JSON_VALUE(p.value, '$.thanhTien')
-                    FROM OPENJSON(@list_json_chitiethoadon) AS p;
-                END;
-        SELECT '';
+        INSERT INTO ChiTietHDNhap
+        (
+           
+		   MaHDNhap,
+		   MaNguyenlieu, 
+		   SoLuong, 
+		   Dongia, 
+		   ThanhTien
+        )
+        SELECT
+		    
+		    JSON_VALUE(p.value, '$.MaHDNhap'),
+            JSON_VALUE(p.value, '$.MaNguyenlieu'),
+            JSON_VALUE(p.value, '$.soLuong'),
+            JSON_VALUE(p.value, '$.Dongia'),
+            JSON_VALUE(p.value, '$.ThanhTien')
+        FROM OPENJSON(@list_json_chitiethoadonnhap) AS p;
     END;
+    SELECT '';
+END;
+go
+--hóa đơn bán
+CREATE PROCEDURE sp_hoadonban_get_by_id
+    @MaHDBan NVARCHAR(30)
+AS
+    BEGIN
+        SELECT h.*, 
+        (
+            SELECT c.*
+            FROM ChiTietHDBan AS c
+            WHERE  h.MaHDBan = c.MaHDBan FOR JSON PATH
+        ) AS list_json_chitiethoadonban
+        FROM HDBan AS h
+        WHERE  h.MaHDBan = @MaHDBan;
+ END;
+ GO
+ --- Create hóa đơn bán
+ --DROP PROCEDURE sp_hoadonban_create;
+ CREATE PROCEDURE sp_hoadonban_create
+(
+    @MaHDBan nvarchar(30) ,
+	@MaNhanVien nvarchar(10) ,
+	@NgayBan Datetime ,
+	@MaKhach nvarchar(10),
+	@TongTien float(53),
+    @list_json_chitiethoadonban nvarchar(max)--sử dụng để lưu trữ dữ liệu dưới dạng văn bản có độ dài tối đa (maximum length) 
+)
+AS
+BEGIN
+    DECLARE @MaHoaDon nvarchar(50); --Chỉ định kiểu dữ liệu thích hợp cho @MaHoaDon
 
+    INSERT INTO HDBan
+    (
+        MaHDBan,
+        MaNhanVien,
+        NgayBan,
+		MaKhach,
+        TongTien
+    )
+    VALUES
+    (
+        @MaHDBan,
+        @MaNhanVien,
+        @NgayBan,
+		@MaKhach,
+        @Tongtien
+    );
+    SET @MaHoaDon = (SELECT SCOPE_IDENTITY());--gán giá trị của biến @MaHoaDon bằng giá trị ID tự tạo 
 
+    IF (@list_json_chitiethoadonban IS NOT NULL)--kiểm tra xem biến có khác NULL hay không.
+    BEGIN
+        INSERT INTO ChiTietHDBan 
+        (
+          MaHDBan, Mamonan, SoLuong, GiamGia, ThanhTien
+        )
+        SELECT
+		    --trích xuất các giá trị tương ứng từ các khóa JSON và trả về chúng dưới dạng các cột trong kết quả truy vấn.
+		    JSON_VALUE(p.value, '$.MaHDBan'),
+            JSON_VALUE(p.value, '$.Mamonan'),
+            JSON_VALUE(p.value, '$.soLuong'),
+            JSON_VALUE(p.value, '$.GiamGia'),
+            JSON_VALUE(p.value, '$.ThanhTien')
+        FROM OPENJSON(@list_json_chitiethoadonban) AS p;--mở biến dưới dạng một bảng ảo và đặt tên cho từng phần tử JSON trong bảng ảo là p
+    END;
+    SELECT '';
+END;
+go
 
+select * from HDBan
+select * from ChiTietHDBan
 
 
 
