@@ -34,6 +34,14 @@ namespace BTL_API.Controllers
             _nhaCCBusines.Update(model);
             return model;
         }
+        [Route("delete-nhacc")]
+        [HttpDelete]
+        public NhaCCModel DeleteItem([FromBody] NhaCCModel model)
+        {
+            _nhaCCBusines.Delete(model);
+            return model;
+        }
+
         [Route("search")]
         [HttpPost]
         public IActionResult Search([FromBody] Dictionary<string, object> formData)
@@ -43,7 +51,7 @@ namespace BTL_API.Controllers
                 var page = int.Parse(formData["page"].ToString());
                 var pageSize = int.Parse(formData["pageSize"].ToString());
                 string TenNCC = "";
-                if (formData.Keys.Contains("TenNCC") && !string.IsNullOrEmpty(Convert.ToString(formData["ten_khach"]))) { TenNCC = Convert.ToString(formData["TenNCC"]); }
+                if (formData.Keys.Contains("TenNCC") && !string.IsNullOrEmpty(Convert.ToString(formData["TenNCC"]))) { TenNCC = Convert.ToString(formData["TenNCC"]); }
                 string DiachiNCC = "";
                 if (formData.Keys.Contains("DiachiNCC") && !string.IsNullOrEmpty(Convert.ToString(formData["DiachiNCC"]))) { DiachiNCC = Convert.ToString(formData["DiachiNCC"]); }
                 long total = 0;
@@ -54,9 +62,9 @@ namespace BTL_API.Controllers
                         TotalItems = total,
                         Data = data,
                         Page = page,
-                        PageSize = pageSize
+                        PageSize = pageSize,       
                     }
-                    );
+                   );
             }
             catch (Exception ex)
             {

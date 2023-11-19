@@ -1,4 +1,5 @@
-﻿using BusinessLogicLayer.Interfaces;
+﻿using BusinessLogicLayer;
+using BusinessLogicLayer.Interfaces;
 using DataModel;
 using Microsoft.AspNetCore.Mvc;
 
@@ -31,6 +32,13 @@ namespace BTL_API.Controllers
         public NhanVienModel UpdateItem([FromBody] NhanVienModel model)
         {
             _nhanVienBusiness.Update(model);
+            return model;
+        }
+        [Route("delete-nhanvien")]
+        [HttpDelete]
+        public NhanVienModel DeleteItem([FromBody] NhanVienModel model)
+        {
+            _nhanVienBusiness.Delete(model);
             return model;
         }
         [Route("search")]

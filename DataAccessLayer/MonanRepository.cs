@@ -35,6 +35,7 @@ namespace DataAccessLayer
             try
             {
                 var result = _dbHelper.ExecuteScalarSProcedureWithTransaction(out msgError, "sp_monan_create",
+                "@Mamonan",model.Mamonan,
                 "@Tenmonan", model.Tenmonan,
                 "@Loaimonan", model.Loaimonan,
                 "@Gia", model.Gia);
@@ -93,7 +94,26 @@ namespace DataAccessLayer
                 throw; // Re-throw without changing stack information
             }
         }
+        public bool Delete(MonanModel model)
+        {
+            string msgError = "";
+            try
+            {
+                // 
+                var result = _dbHelper.ExecuteScalarSProcedureWithTransaction(out msgError, "sp_monan_delete",
+                    "@Mamonan", model.Mamonan);
+                if ((result != null && !string.IsNullOrEmpty(result.ToString())) || !string.IsNullOrEmpty(msgError))
+                {
+                    throw new Exception(Convert.ToString(result) + msgError);
+                }
+                return true;
 
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }
 

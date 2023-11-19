@@ -35,6 +35,7 @@ namespace DataAccessLayer
             try
             {
                 var result = _dbHelper.ExecuteScalarSProcedureWithTransaction(out msgError, "sp_khach_create",
+                "@MaKhach",model.MaKhach,
                 "@TenKhach", model.TenKhach,
                 "@DiaChi", model.DiaChi,
                 "@DienThoai", model.DienThoai);
@@ -93,6 +94,25 @@ namespace DataAccessLayer
                 throw; // Re-throw without changing stack information
             }
         }
+        public bool Delete(KhachHangModel model)
+        {
+            string msgError = "";
+            try
+            {
+                // 
+                var result = _dbHelper.ExecuteScalarSProcedureWithTransaction(out msgError, "sp_khach_delete",
+                    "@MaKhach", model.MaKhach);
+                if ((result != null && !string.IsNullOrEmpty(result.ToString())) || !string.IsNullOrEmpty(msgError))
+                {
+                    throw new Exception(Convert.ToString(result) + msgError);
+                }
+                return true;
 
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

@@ -1,3 +1,4 @@
+using BusinessLogicLayer;
 using BusinessLogicLayer.Interfaces;
 using DataModel;
 using Microsoft.AspNetCore.Mvc;
@@ -62,6 +63,13 @@ namespace BTL_API.Controllers
             {
                 throw new Exception(ex.Message);
             }
+        }
+        [Route("delete-khach")]
+        [HttpDelete]
+        public KhachHangModel DeleteItem([FromBody] KhachHangModel model)
+        {
+            _khachBusiness.Delete(model);
+            return model;
         }
     }
 }

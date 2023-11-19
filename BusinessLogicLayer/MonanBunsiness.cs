@@ -28,6 +28,10 @@ namespace BusinessLogicLayer
         {
             return _res.Update(model);
         }
+        public bool Delete(MonanModel model)
+        {
+            return _res.Delete(model);
+        }
         public List<MonanModel> Search(int pageIndex, int pageSize, out long total, string Tenmonan, string Loaimonan)
         {
             return _res.Search(pageIndex, pageSize, out total, Tenmonan, Loaimonan);

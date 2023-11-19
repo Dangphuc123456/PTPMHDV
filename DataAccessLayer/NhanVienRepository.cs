@@ -36,9 +36,12 @@ namespace DataAccessLayer
             try
             {
                 var result = _dbHelper.ExecuteScalarSProcedureWithTransaction(out msgError, "sp_nhanvien_create",
+                   "@MaNhanVien", model.MaNhanVien,
                  "@TenNhanVien", model.TenNhanVien,
+                 "@GioiTinh", model.GioiTinh,
                 "@DiaChi", model.DiaChi,
-                "@DienThoai", model.DienThoai);
+                "@DienThoai", model.DienThoai,
+                "@NgaySinh", model.NgaySinh);
                 if ((result != null && !string.IsNullOrEmpty(result.ToString())) || !string.IsNullOrEmpty(msgError))
                 {
                     throw new Exception(Convert.ToString(result) + msgError);
@@ -96,6 +99,25 @@ namespace DataAccessLayer
                 throw; // Re-throw without changing stack information
             }
         }
+        public bool Delete(NhanVienModel model)
+        {
+            string msgError = "";
+            try
+            {
+                // 
+                var result = _dbHelper.ExecuteScalarSProcedureWithTransaction(out msgError, "sp_nhanvien_delete",
+                    "@MaNhanVien", model.MaNhanVien);
+                if ((result != null && !string.IsNullOrEmpty(result.ToString())) || !string.IsNullOrEmpty(msgError))
+                {
+                    throw new Exception(Convert.ToString(result) + msgError);
+                }
+                return true;
 
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

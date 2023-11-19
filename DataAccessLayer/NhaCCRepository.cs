@@ -35,7 +35,8 @@ namespace DataAccessLayer
             try
             {
                 var result = _dbHelper.ExecuteScalarSProcedureWithTransaction(out msgError, "sp_nhacc_create",
-                 "@TenNCC", model.TenNCC,
+                 "@NhaCCID", model.NhaCCID,
+                "@TenNCC", model.TenNCC,
                 "@DiachiNCC", model.DiachiNCC,
                 "@SdtNCC", model.SdtNCC);
                 if ((result != null && !string.IsNullOrEmpty(result.ToString())) || !string.IsNullOrEmpty(msgError))
@@ -46,7 +47,7 @@ namespace DataAccessLayer
             }
             catch (Exception ex)
             {
-                throw; // Re-throw without changing stack information
+                throw; //Ném lại mà không thay đổi thông tin ngăn xếp
             }
         }
 
@@ -93,6 +94,25 @@ namespace DataAccessLayer
                 throw; // Re-throw without changing stack information
             }
         }
+        public bool Delete(NhaCCModel model)
+        {
+            string msgError = "";
+            try
+            {
+               // 
+                var result = _dbHelper.ExecuteScalarSProcedureWithTransaction(out msgError, "sp_nhacc_delete",
+                    "@NhaCCID", model.NhaCCID);
+                if ((result != null && !string.IsNullOrEmpty(result.ToString())) || !string.IsNullOrEmpty(msgError))
+                {
+                    throw new Exception(Convert.ToString(result) + msgError);
+                }
+                return true;
 
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

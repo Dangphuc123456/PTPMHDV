@@ -201,6 +201,7 @@ VALUES
 	Select * from ChiTietHDNhap
 	Select * from HDBan
 	Select * from ChiTietHDBan
+	Select * from NhaCC
 go
 
 --login
@@ -212,6 +213,62 @@ begin
 	select * from dbo.TaiKhoans
 	where TenTaiKhoan = @taikhoan
 	and MatKhau =  @matkhau
+END;
+go
+--MONS AN
+CREATE PROCEDURE sp_monan_get_by_id
+@Mamonan  nvarchar(50)
+AS
+BEGIN
+    SELECT *
+    FROM Monan
+    WHERE Mamonan = @Mamonan;
+END;
+GO
+
+CREATE PROCEDURE sp_monan_create
+    @Mamonan nvarchar(50),
+    @Tenmonan nvarchar(50),
+    @Loaimonan nvarchar(30),
+    @Gia float(53)
+AS
+BEGIN
+    INSERT INTO Monan (Mamonan, Tenmonan, Loaimonan, Gia)
+    VALUES (@Mamonan, @Tenmonan, @Loaimonan, @Gia);
+END;
+GO
+
+CREATE PROCEDURE sp_monan_update
+    @Mamonan nvarchar(50),
+    @Tenmonan nvarchar(50),
+    @Loaimonan nvarchar(30),
+    @Gia float(53)
+AS
+BEGIN
+    UPDATE Monan
+    SET Tenmonan = @Tenmonan,
+        Loaimonan = @Loaimonan,
+        Gia = @Gia
+    WHERE Mamonan = @Mamonan;
+END;
+go
+
+CREATE PROCEDURE sp_monan_search
+      @Tenmonan nvarchar(50)
+AS
+BEGIN
+    SELECT *
+    FROM Monan
+    WHERE Tenmonan LIKE '%' + @Tenmonan + '%';
+END;
+go
+
+Create procedure sp_monan_delete
+ @Mamonan nvarchar(50)
+AS
+BEGIN
+DELETE FROM Monan
+    WHERE Mamonan=@Mamonan
 END;
 go
 --nhân viên
@@ -256,6 +313,15 @@ BEGIN
         DienThoai = @DienThoai,
         NgaySinh = @NgaySinh
     WHERE MaNhanVien = @MaNhanVien;
+END;
+go
+
+Create procedure sp_nhanvien_delete
+@MaNhanVien nvarchar(10)
+AS
+BEGIN
+DELETE FROM NhanVien
+    WHERE MaNhanVien=@MaNhanVien
 END;
 go
 
@@ -309,6 +375,15 @@ BEGIN
 END;
 go
 
+Create procedure sp_nhacc_delete
+@NhaCCID nvarchar(10)
+AS
+BEGIN
+DELETE FROM NhaCC
+    WHERE NhaCCID=@NhaCCID
+END;
+go
+
 CREATE PROCEDURE sp_nhacc_search
     @NhaCCID nvarchar(10) = NULL,
     @TenNCC nvarchar(30) = NULL
@@ -357,16 +432,26 @@ BEGIN
     WHERE MaKhach = @MaKhach;
 END;
 go
-
+--DROP PROCEDURE sp_khach_search;
 CREATE PROCEDURE sp_khach_search
-    @MaKhach nvarchar(10)
+    @TenKhach nvarchar(50),
+    @DiaChi nvarchar(50)
 AS
 BEGIN
     SET NOCOUNT ON;
     
-    SELECT MaKhach, TenKhach, DiaChi, DienThoai
+    SELECT  TenKhach, DiaChi
     FROM Khach
-    WHERE MaKhach = @MaKhach;
+    WHERE TenKhach LIKE '%' + @TenKhach + '%' AND DiaChi LIKE '%' + @DiaChi + '%';
+END;
+GO
+
+Create procedure sp_khach_delete
+@MaKhach nvarchar(10)
+AS
+BEGIN
+DELETE FROM Khach
+    WHERE MaKhach=@MaKhach
 END;
 go
 --DROP PROCEDURE sp_hoadonnhap_get_by_id;

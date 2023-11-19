@@ -34,6 +34,13 @@ namespace BTL_API.Controllers
             _monanBusiness.Update(model);
             return model;
         }
+        [Route("delete-monan")]
+        [HttpDelete]
+        public MonanModel DeleteItem([FromBody] MonanModel model)
+        {
+            _monanBusiness.Delete(model);
+            return model;
+        }
         [Route("search")]
         [HttpPost]
         public IActionResult Search([FromBody] Dictionary<string, object> formData)
