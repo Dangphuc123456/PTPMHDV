@@ -40,36 +40,7 @@ namespace BTL_API.Controllers
         {
             _nhanVienBusiness.Delete(model);
             return model;
-        }
-        [Route("search")]
-        [HttpPost]
-        public IActionResult Search([FromBody] Dictionary<string, object> formData)
-        {
-            try
-            {
-                var page = int.Parse(formData["page"].ToString());
-                var pageSize = int.Parse(formData["pageSize"].ToString());
-                string TenNhanVien = "";
-                if (formData.Keys.Contains("TenNhanVien") && !string.IsNullOrEmpty(Convert.ToString(formData["TenNhanVien"]))) { TenNhanVien = Convert.ToString(formData["TenNhanVien"]); }
-                string DiaChi = "";
-                if (formData.Keys.Contains("DiaChi") && !string.IsNullOrEmpty(Convert.ToString(formData["DiaChi"]))) { DiaChi = Convert.ToString(formData["DiaChi"]); }
-                long total = 0;
-                var data = _nhanVienBusiness.Search(page, pageSize, out total, TenNhanVien, DiaChi);
-                return Ok(
-                    new
-                    {
-                        TotalItems = total,
-                        Data = data,
-                        Page = page,
-                        PageSize = pageSize
-                    }
-                    );
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
-        }
+        }       
     }
 }
 

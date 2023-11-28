@@ -78,28 +78,5 @@ namespace DataAccessLayer
             }
         }
 
-        public List<ThongkeKhachModel> Search(int pageIndex, int pageSize, out long total, string TenKhach, DateTime? fr_NgayBan, DateTime? to_NgayBan)
-        {
-            string msgError = "";
-            total = 0;
-            try
-            {
-                var dt = _dbHelper.ExecuteSProcedureReturnDataTable(out msgError, "sp_thong_ke_khach",
-                    "@page_index", pageIndex,
-                    "@page_size", pageSize,
-                    "@TenKhach", TenKhach,
-                    "@fr_NgayBan", fr_NgayBan,
-                    "@to_NgayBan", to_NgayBan
-                     );
-                if (!string.IsNullOrEmpty(msgError))
-                    throw new Exception(msgError);
-                if (dt.Rows.Count > 0) total = (long)dt.Rows[0]["RecordCount"];
-                return dt.ConvertTo<ThongkeKhachModel>().ToList();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
     }
 }

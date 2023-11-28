@@ -73,27 +73,7 @@ namespace DataAccessLayer
             }
         }
 
-        public List<MonanModel> Search(int pageIndex, int pageSize, out long total, string Tenmonan, string Loaimonan)
-        {
-            string msgError = "";
-            total = 0;
-            try
-            {
-                var dt = _dbHelper.ExecuteSProcedureReturnDataTable(out msgError, "sp_monan_search",
-                    "@page_index", pageIndex,
-                    "@page_size", pageSize,
-                    "@Tenmonan", Tenmonan,
-                    "@Loaimonan", Loaimonan);
-                if (!string.IsNullOrEmpty(msgError))
-                    throw new Exception(msgError);
-                if (dt.Rows.Count > 0) total = (long)dt.Rows[0]["RecordCount"];
-                return dt.ConvertTo<MonanModel>().ToList();
-            }
-            catch (Exception ex)
-            {
-                throw; // Re-throw without changing stack information
-            }
-        }
+        
         public bool Delete(MonanModel model)
         {
             string msgError = "";

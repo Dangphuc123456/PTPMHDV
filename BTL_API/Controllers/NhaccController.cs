@@ -42,34 +42,5 @@ namespace BTL_API.Controllers
             return model;
         }
 
-        [Route("search")]
-        [HttpPost]
-        public IActionResult Search([FromBody] Dictionary<string, object> formData)
-        {
-            try
-            {
-                var page = int.Parse(formData["page"].ToString());
-                var pageSize = int.Parse(formData["pageSize"].ToString());
-                string TenNCC = "";
-                if (formData.Keys.Contains("TenNCC") && !string.IsNullOrEmpty(Convert.ToString(formData["TenNCC"]))) { TenNCC = Convert.ToString(formData["TenNCC"]); }
-                string DiachiNCC = "";
-                if (formData.Keys.Contains("DiachiNCC") && !string.IsNullOrEmpty(Convert.ToString(formData["DiachiNCC"]))) { DiachiNCC = Convert.ToString(formData["DiachiNCC"]); }
-                long total = 0;
-                var data = _nhaCCBusines.Search(page, pageSize, out total, TenNCC, DiachiNCC);
-                return Ok(
-                    new
-                    {
-                        TotalItems = total,
-                        Data = data,
-                        Page = page,
-                        PageSize = pageSize,       
-                    }
-                   );
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
-        }
     }
 }

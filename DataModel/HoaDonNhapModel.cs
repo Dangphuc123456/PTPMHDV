@@ -7,7 +7,7 @@
         public string NhaCCID { get; set; }
         public DateTime NgayNhap { get; set; }
         public float TongTien { get; set; }
-        public List<ChiTietHoaDonNhapModel> list_json_chitiethoadonnhap { get; set; }
+        public List<ChiTietHoaDonNhapModel> ListChiTietHoaDonNhap { get; set; }
     }
 
     public class ChiTietHoaDonNhapModel
@@ -19,5 +19,6 @@
         public float Dongia { get; set; }
         public float ThanhTien { get; set; }
     }
+
 }
 

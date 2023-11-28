@@ -39,7 +39,7 @@ namespace DataAccessLayer
                 "@NhaCCID", model.NhaCCID,
                 "@NgayNhap", model.NgayNhap,
                 "@TongTien", model.TongTien,
-                "@list_json_chitiethoadonnhap", model.list_json_chitiethoadonnhap != null ? MessageConvert.SerializeObject(model.list_json_chitiethoadonnhap) : null);
+                "@ListChiTietHoaDonNhap", model.ListChiTietHoaDonNhap != null ? MessageConvert.SerializeObject(model.ListChiTietHoaDonNhap) : null);
                 if ((result != null && !string.IsNullOrEmpty(result.ToString())) || !string.IsNullOrEmpty(msgError))
                 {
                     throw new Exception(Convert.ToString(result) + msgError);
@@ -75,29 +75,7 @@ namespace DataAccessLayer
             }
         }
 
-        public List<ThongkeNguyenlieuModel> Search(int pageIndex, int pageSize, out long total, string MaNguyenlieu, DateTime? fr_NgayNhap, DateTime? to_NgayNhap)
-        {
-            string msgError = "";
-            total = 0;
-            try
-            {
-                var dt = _dbHelper.ExecuteSProcedureReturnDataTable(out msgError, "sp_thong_ke_nguyenlieu",
-                    "@page_index", pageIndex,
-                    "@page_size", pageSize,
-                    "@MaNguyenlieu", MaNguyenlieu,
-                    "@fr_NgayNhap", fr_NgayNhap,
-                    "@to_NgayNhap", to_NgayNhap
-                     );
-                if (!string.IsNullOrEmpty(msgError))
-                    throw new Exception(msgError);
-                if (dt.Rows.Count > 0) total = (long)dt.Rows[0]["RecordCount"];
-                return dt.ConvertTo<ThongkeNguyenlieuModel>().ToList();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
+        
     }
 }
 

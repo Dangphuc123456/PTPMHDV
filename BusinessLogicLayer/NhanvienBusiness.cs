@@ -28,9 +28,6 @@ namespace BusinessLogicLayer
         {
             return _res.Delete(model);
         }
-        public List<NhanVienModel> Search(int pageIndex, int pageSize, out long total, string TenNhanVien, string DiaChi)
-        {
-            return _res.Search(pageIndex, pageSize, out total, TenNhanVien, DiaChi);
-        }
+        
     }
 }

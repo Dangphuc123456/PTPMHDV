@@ -25,10 +25,7 @@ namespace BusinessLogicLayer
         {
             return _res.Update(model);
         }
-        public List<ThongkeKhachModel> Search(int pageIndex, int pageSize, out long total, string TenKhach, DateTime? fr_NgayBan, DateTime? to_NgayBan)
-        {
-            return _res.Search(pageIndex, pageSize, out total, TenKhach, fr_NgayBan, to_NgayBan);
-        }
+       
     }
 }
 

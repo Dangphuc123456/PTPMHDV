@@ -19,20 +19,6 @@ namespace BTL_API.Controllers
         {
             return _hoaDonBanBusiness.GetDatabyID(MaHDBan);
         }
-        [Route("create-hoadon")]
-        [HttpPost]
-        public HoaDonBanModel CreateItem([FromBody] HoaDonBanModel model)
-        {
-            _hoaDonBanBusiness.Create(model);
-            return model;
-        }
-        [Route("update-hoadon")]
-        [HttpPost]
-        public HoaDonBanModel Update([FromBody] HoaDonBanModel model)
-        {
-            _hoaDonBanBusiness.Update(model);
-            return model;
-        }
 
         [Route("search")]
         [HttpPost]

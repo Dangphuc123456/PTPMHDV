@@ -41,34 +41,7 @@ namespace BTL_API.Controllers
             _monanBusiness.Delete(model);
             return model;
         }
-        [Route("search")]
-        [HttpPost]
-        public IActionResult Search([FromBody] Dictionary<string, object> formData)
-        {
-            try
-            {
-                var page = int.Parse(formData["page"].ToString());
-                var pageSize = int.Parse(formData["pageSize"].ToString());
-                string Tenmonan = "";
-                if (formData.Keys.Contains("Tenmonan") && !string.IsNullOrEmpty(Convert.ToString(formData["Tenmonan"]))) { Tenmonan = Convert.ToString(formData["Tenmonan"]); }
-                string Loaimonan = "";
-                if (formData.Keys.Contains("Loaimonan") && !string.IsNullOrEmpty(Convert.ToString(formData["Loaimonan"]))) { Loaimonan = Convert.ToString(formData["Loaimonan"]); }
-                long total = 0;
-                var data = _monanBusiness.Search(page, pageSize, out total, Tenmonan, Loaimonan);
-                return Ok(
-                    new
-                    {
-                        TotalItems = total,
-                        Data = data,
-                        Page = page,
-                        PageSize = pageSize
-                    }
-                    );
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
-        }
+       
+        
     }
 }

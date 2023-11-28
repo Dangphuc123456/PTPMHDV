@@ -73,27 +73,7 @@ namespace DataAccessLayer
             }
         }
 
-        public List<KhachHangModel> Search(int pageIndex, int pageSize, out long total, string ten_khach, string dia_chi)
-        {
-            string msgError = "";
-            total = 0;
-            try
-            {
-                var dt = _dbHelper.ExecuteSProcedureReturnDataTable(out msgError, "sp_khach_search",
-                    "@page_index", pageIndex,
-                    "@page_size", pageSize,
-                    "@ten_khach", ten_khach,
-                    "@dia_chi", dia_chi);
-                if (!string.IsNullOrEmpty(msgError))
-                    throw new Exception(msgError);
-                if (dt.Rows.Count > 0) total = (long)dt.Rows[0]["RecordCount"];
-                return dt.ConvertTo<KhachHangModel>().ToList();
-            }
-            catch (Exception ex)
-            {
-                throw; // Re-throw without changing stack information
-            }
-        }
+        
         public bool Delete(KhachHangModel model)
         {
             string msgError = "";

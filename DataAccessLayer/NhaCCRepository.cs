@@ -73,27 +73,7 @@ namespace DataAccessLayer
             }
         }
 
-        public List<NhaCCModel> Search(int pageIndex, int pageSize, out long total, string TenNCC, string DiachiNCC)
-        {
-            string msgError = "";
-            total = 0;
-            try
-            {
-                var dt = _dbHelper.ExecuteSProcedureReturnDataTable(out msgError, "sp_nhacc_search",
-                    "@page_index", pageIndex,
-                    "@page_size", pageSize,
-                    "@TenNCC", TenNCC,
-                    "@DiachiNCC", DiachiNCC);
-                if (!string.IsNullOrEmpty(msgError))
-                    throw new Exception(msgError);
-                if (dt.Rows.Count > 0) total = (long)dt.Rows[0]["RecordCount"];
-                return dt.ConvertTo<NhaCCModel>().ToList();
-            }
-            catch (Exception ex)
-            {
-                throw; // Re-throw without changing stack information
-            }
-        }
+       
         public bool Delete(NhaCCModel model)
         {
             string msgError = "";

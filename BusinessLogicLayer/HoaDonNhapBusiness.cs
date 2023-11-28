@@ -24,9 +24,5 @@ namespace BusinessLogicLayer
         {
             return _res.Update(model);
         }
-        public List<ThongkeNguyenlieuModel> Search(int pageIndex, int pageSize, out long total, string NhaCCID, DateTime? fr_NgayNhap, DateTime? to_NgayNhap)
-        {
-            return _res.Search(pageIndex, pageSize, out total, NhaCCID, fr_NgayNhap, to_NgayNhap);
-        }
     }
 }
