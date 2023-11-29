@@ -37,7 +37,6 @@ namespace DataAccessLayer
             try
             {
                 var result = _dbHelper.ExecuteScalarSProcedureWithTransaction(out msgError, "sp_hoadonban_create",
-               "@MaHDBan", model.MaHDBan,
                 "@MaNhanVien", model.MaNhanVien,
                 "@MaKhach", model.MaKhach,
                 "@NgayBan", model.NgayBan,

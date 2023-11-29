@@ -1,5 +1,5 @@
-﻿--use master
---drop database if exists BTL_API
+﻿use master
+drop database if exists BTL_API_update
 create database BTL_API_update
 go
 use  BTL_API_update
@@ -253,15 +253,6 @@ BEGIN
 END;
 go
 
-CREATE PROCEDURE sp_monan_search
-      @Tenmonan nvarchar(50)
-AS
-BEGIN
-    SELECT *
-    FROM Monan
-    WHERE Tenmonan LIKE '%' + @Tenmonan + '%';
-END;
-go
 
 Create procedure sp_monan_delete
  @Mamonan nvarchar(50)
@@ -325,15 +316,7 @@ DELETE FROM NhanVien
 END;
 go
 
-CREATE PROCEDURE sp_nhanvien_search
-    @TenNhanVien nvarchar(50)
-AS
-BEGIN
-    SELECT *
-    FROM NhanVien
-    WHERE TenNhanVien LIKE '%' + @TenNhanVien + '%';
-END;
-go
+
 ---nhà cung cấp
 CREATE PROCEDURE sp_nhacc_get_by_id
     @NhaCCID nvarchar(10)
@@ -384,17 +367,7 @@ DELETE FROM NhaCC
 END;
 go
 
-CREATE PROCEDURE sp_nhacc_search
-    @NhaCCID nvarchar(10) = NULL,
-    @TenNCC nvarchar(30) = NULL
-AS
-BEGIN
-    SELECT *
-    FROM NhaCC
-    WHERE (@NhaCCID IS NULL OR NhaCCID = @NhaCCID)
-    AND (@TenNCC IS NULL OR TenNCC LIKE '%' + @TenNCC + '%');
-END;
-go
+
 --Khách hàng
 CREATE PROCEDURE sp_khach_get_by_id
     @MaKhach nvarchar(10)
@@ -432,19 +405,7 @@ BEGIN
     WHERE MaKhach = @MaKhach;
 END;
 go
---DROP PROCEDURE sp_khach_search;
-CREATE PROCEDURE sp_khach_search
-    @TenKhach nvarchar(50),
-    @DiaChi nvarchar(50)
-AS
-BEGIN
-    SET NOCOUNT ON;
-    
-    SELECT  TenKhach, DiaChi
-    FROM Khach
-    WHERE TenKhach LIKE '%' + @TenKhach + '%' AND DiaChi LIKE '%' + @DiaChi + '%';
-END;
-GO
+
 
 Create procedure sp_khach_delete
 @MaKhach nvarchar(10)
@@ -472,60 +433,33 @@ AS
 	GO
 
 --DROP PROCEDURE sp_hoadonnhap_create;
-CREATE PROCEDURE sp_hoadonnhap_create
-(
-    @MaHDNhap nvarchar(50),
-    @MaNhanVien nvarchar(50),
-    @NgayNhap Datetime,
-    @NhaCCID nvarchar(50),
-    @Tongtien float,
-    @list_json_chitiethoadonnhap nvarchar(max)--sử dụng để lưu trữ dữ liệu dưới dạng văn bản có độ dài tối đa (maximum length) 
-)
+create PROCEDURE sp_hoadonnhap_create
+    @KhachHangID int,
+    @TenSanPham NVARCHAR(255),
+    @SoLuong INT,
+    @list_json_chitiethoadonban NVARCHAR(MAX)
 AS
 BEGIN
-    DECLARE @MaHoaDon nvarchar(50); --Chỉ định kiểu dữ liệu thích hợp cho @MaHoaDon
+    DECLARE @HoaDonID INT;
 
-    INSERT INTO HDNhap
-    (
-        MaHDNhap,
-        MaNhanVien,
-        NgayNhap,
-        NhaCCID,
-        TongTien
-    )
-    VALUES
-    (
-        @MaHDNhap,
-        @MaNhanVien,
-        @NgayNhap,
-        @NhaCCID,
-        @Tongtien
-    );
-    SET @MaHoaDon = (SELECT SCOPE_IDENTITY());--gán giá trị của biến @MaHoaDon bằng giá trị ID tự tạo 
+    INSERT INTO HDBan (KhachHangID, TenSanPham, SoLuong)
+    VALUES (@KhachHangID, @TenSanPham, @SoLuong);
 
-    IF (@list_json_chitiethoadonnhap IS NOT NULL)--kiểm tra xem biến có khác NULL hay không.
+    SET @HoaDonID = SCOPE_IDENTITY();
+
+    IF (@list_json_chitiethoadonban IS NOT NULL)
     BEGIN
-        INSERT INTO ChiTietHDNhap
-        (
-           
-		   MaHDNhap,
-		   MaNguyenlieu, 
-		   SoLuong, 
-		   Dongia, 
-		   ThanhTien
-        )
-        SELECT
-		    
-		    JSON_VALUE(p.value, '$.MaHDNhap'),
-            JSON_VALUE(p.value, '$.MaNguyenlieu'),
-            JSON_VALUE(p.value, '$.soLuong'),
-            JSON_VALUE(p.value, '$.Dongia'),
-            JSON_VALUE(p.value, '$.ThanhTien')
-        FROM OPENJSON(@list_json_chitiethoadonnhap) AS p;
+        INSERT INTO ChiTietHoaDonBan (HoaDonID, SanPhamID, SoLuong, TongGia)
+        SELECT @HoaDonID, JSON_VALUE(p.value, '$.SanPhamID'), JSON_VALUE(p.value, '$.SoLuong'),
+               JSON_VALUE(p.value, '$.TongGia')
+        FROM OPENJSON(@list_json_chitiethoadonban) AS p;
     END;
+
     SELECT '';
 END;
-go
+
+GO
+
 --hóa đơn bán
 CREATE PROCEDURE sp_hoadonban_get_by_id
     @MaHDBan NVARCHAR(30)
@@ -543,55 +477,37 @@ AS
  GO
  --- Create hóa đơn bán
  --DROP PROCEDURE sp_hoadonban_create;
- CREATE PROCEDURE sp_hoadonban_create
-(
-    @MaHDBan nvarchar(30) ,
+ create PROCEDURE sp_hoadonban_create
 	@MaNhanVien nvarchar(10) ,
 	@NgayBan Datetime ,
-	@MaKhach nvarchar(10),
+	@MaKhach nvarchar(10) ,
 	@TongTien float(53),
-    @list_json_chitiethoadonban nvarchar(max)--sử dụng để lưu trữ dữ liệu dưới dạng văn bản có độ dài tối đa (maximum length) 
-)
+    @list_json_chitiethoadonban NVARCHAR(MAX)
 AS
 BEGIN
-    DECLARE @MaHoaDon nvarchar(50); --Chỉ định kiểu dữ liệu thích hợp cho @MaHoaDon
+    DECLARE  @MaHDBan nvarchar(30);
 
-    INSERT INTO HDBan
-    (
-        MaHDBan,
-        MaNhanVien,
-        NgayBan,
-		MaKhach,
-        TongTien
-    )
-    VALUES
-    (
-        @MaHDBan,
-        @MaNhanVien,
-        @NgayBan,
-		@MaKhach,
-        @Tongtien
-    );
-    SET @MaHoaDon = (SELECT SCOPE_IDENTITY());--gán giá trị của biến @MaHoaDon bằng giá trị ID tự tạo 
+    INSERT INTO HDBan (MaNhanVien, NgayBan, MaKhach,TongTien)
+    VALUES (@MaNhanVien, @NgayBan, @MaKhach, @TongTien);
 
-    IF (@list_json_chitiethoadonban IS NOT NULL)--kiểm tra xem biến có khác NULL hay không.
+    SET @MaHDBan = SCOPE_IDENTITY();
+
+    IF (@list_json_chitiethoadonban IS NOT NULL)
     BEGIN
-        INSERT INTO ChiTietHDBan 
-        (
-          MaHDBan, Mamonan, SoLuong, GiamGia, ThanhTien
-        )
-        SELECT
-		    --trích xuất các giá trị tương ứng từ các khóa JSON và trả về chúng dưới dạng các cột trong kết quả truy vấn.
-		    JSON_VALUE(p.value, '$.MaHDBan'),
-            JSON_VALUE(p.value, '$.Mamonan'),
-            JSON_VALUE(p.value, '$.soLuong'),
-            JSON_VALUE(p.value, '$.GiamGia'),
-            JSON_VALUE(p.value, '$.ThanhTien')
-        FROM OPENJSON(@list_json_chitiethoadonban) AS p;--mở biến dưới dạng một bảng ảo và đặt tên cho từng phần tử JSON trong bảng ảo là p
+        INSERT INTO ChiTietHDBan (MaCTBan, MaHDBan, Mamonan, SoLuong, GiamGia, ThanhTien)
+        SELECT @MaHDBan, 
+		JSON_VALUE(p.value, '$.MaCTBan'), 
+		JSON_VALUE(p.value, '$.Mamonan'), 
+		JSON_VALUE(p.value, '$.SoLuong'),
+        JSON_VALUE(p.value, '$.GiamGia'),
+		JSON_VALUE(p.value, '$.ThanhTien')
+        FROM OPENJSON(@list_json_chitiethoadonban) AS p;
     END;
+
     SELECT '';
 END;
-go
+
+
 
 select * from HDBan
 select * from ChiTietHDBan

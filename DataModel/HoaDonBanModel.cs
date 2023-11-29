@@ -2,7 +2,7 @@
 {
     public class HoaDonBanModel
     {
-        public string MaHDBan { get; set; }
+        public int MaHDBan { get; set; }
         public string MaNhanVien { get; set; }
         public DateTime NgayBan { get; set; }
         public string MaKhach { get; set; }
@@ -11,9 +11,8 @@
     }
     public class ChiTietHoaDonbanModel 
     { 
-        public string MaCTBan{ get; set; }
-
-        public string MaHDBan { get; set; }
+        public int MaCTBan{ get; set; }
+        public int MaHDBan { get; set; }
         public string Mamonan { get; set; }
          public int  SoLuong { get; set; }
         public float GiamGia{ get; set; }

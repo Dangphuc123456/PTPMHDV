@@ -34,12 +34,11 @@ namespace DataAccessLayer
             try
             {
                 var result = _dbHelper.ExecuteScalarSProcedureWithTransaction(out msgError, "sp_hoadonnhap_create",
-                "@MaHDNhap",model.MaHDNhap,
                 "@MaNhanVien", model.MaNhanVien,
                 "@NhaCCID", model.NhaCCID,
                 "@NgayNhap", model.NgayNhap,
                 "@TongTien", model.TongTien,
-                "@ListChiTietHoaDonNhap", model.ListChiTietHoaDonNhap != null ? MessageConvert.SerializeObject(model.ListChiTietHoaDonNhap) : null);
+                "@list_json_chitiethoadonnhap", model.list_json_chitiethoadonnhap != null ? MessageConvert.SerializeObject(model.list_json_chitiethoadonnhap) : null);
                 if ((result != null && !string.IsNullOrEmpty(result.ToString())) || !string.IsNullOrEmpty(msgError))
                 {
                     throw new Exception(Convert.ToString(result) + msgError);
@@ -57,7 +56,6 @@ namespace DataAccessLayer
             try
             {
                 var result = _dbHelper.ExecuteScalarSProcedureWithTransaction(out msgError, "sp_hoadonnhap_update",
-                "@MaHDNhap", model.MaHDNhap,
                 "@MaNhanVien", model.MaNhanVien,
                 "@NhaCCID", model.NhaCCID,
                 "@NgayNhap", model.NgayNhap,
