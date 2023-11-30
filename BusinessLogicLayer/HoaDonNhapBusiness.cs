@@ -5,7 +5,7 @@ using System.Reflection;
 
 namespace BusinessLogicLayer
 {
-    public class HoaDonNhapBusiness :IHoaDonNhapBusiness
+    public class HoaDonNhapBusiness : IHoaDonNhapBusiness
     {
         private IHoaDonNhapRepository _res;
         public HoaDonNhapBusiness(IHoaDonNhapRepository res)
@@ -24,5 +24,10 @@ namespace BusinessLogicLayer
         {
             return _res.Update(model);
         }
+        public bool Delete(HoaDonNhapModel model)
+        {
+            return _res.Delete(model);
+        }
+
     }
 }

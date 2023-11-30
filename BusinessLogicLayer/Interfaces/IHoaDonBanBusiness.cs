@@ -7,5 +7,6 @@ namespace BusinessLogicLayer.Interfaces
         HoaDonBanModel GetDatabyID(string MaHDBan);
         bool Create(HoaDonBanModel model);
         bool Update(HoaDonBanModel model);
+        bool Delete(HoaDonBanModel model);
     }
 }

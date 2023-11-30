@@ -25,7 +25,10 @@ namespace BusinessLogicLayer
         {
             return _res.Update(model);
         }
-       
+       public bool Delete(HoaDonBanModel model)
+        {
+            return _res.Delete(model);
+        }
     }
 }
 

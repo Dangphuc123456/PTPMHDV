@@ -10,6 +10,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 // Add services to the container.
 builder.Services.AddTransient<IDatabaseHelper, DatabaseHelper>();
+builder.Services.AddTransient<IMonanRepository, MonanRepository>();
+builder.Services.AddTransient<IMonanBusiness, MonanBunsiness>();
 builder.Services.AddTransient<IKhachRepository, KhachHangRepository>();
 builder.Services.AddTransient<IKhachBusiness, KhachBusiness>();
 builder.Services.AddTransient<IHoaDonBanRepository, HoaDonBanRepository>();

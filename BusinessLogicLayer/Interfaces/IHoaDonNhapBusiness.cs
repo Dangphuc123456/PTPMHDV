@@ -7,5 +7,6 @@ namespace BusinessLogicLayer.Interfaces
         HoaDonNhapModel GetDatabyID(string MaHDNhap);
         bool Create(HoaDonNhapModel model);
         bool Update(HoaDonNhapModel model);
+        bool Delete(HoaDonNhapModel model);
     }
 }

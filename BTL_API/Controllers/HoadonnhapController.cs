@@ -35,7 +35,13 @@ namespace BTL_API.Controllers
             _hoaDonNhapBusiness.Update(model);
             return model;
         }
-
+        [Route("delete-hoadon")]
+        [HttpDelete]
+        public HoaDonNhapModel Delete(HoaDonNhapModel model)
+        {
+            _hoaDonNhapBusiness.Delete(model);
+            return model;
+        }
     }
 }
 
